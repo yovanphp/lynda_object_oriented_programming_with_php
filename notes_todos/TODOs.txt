@@ -1,0 +1,2 @@
+1. Define a generic toString() method for classes, so that we can loop on any prperties to display them.
+2. Difference between var_export($address, TRUE) and var_dump($address)
