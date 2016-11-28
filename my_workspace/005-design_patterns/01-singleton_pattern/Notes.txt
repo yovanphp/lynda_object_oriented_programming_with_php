@@ -1,0 +1,20 @@
+Object-oriented programming allows for a number of reusable solutions to common problems within a given context, which are referred to as design patterns.
+
+A singleton pattern restricts the instantiation of a class to one object in order to coordinate actions throughout the system. 
+The database class uses the singleton pattern.
+Note the use of the static property instance to store the singular database connection instance in the database class.
+
+Another common use of the singleton pattern is lazy initialization, where a property defaults to null.
+If the property is called and it's null, determine the value and set the property, then return the result; otherwise, just return the previously calculated property.
+This allows for on-demand access to resources.
+=>class.LazyInit.inc
+
+As you can see, the property is only set when it is called, and it is only set once. Every call after that point will use the initialized value.
+
+
+
+
+
+
+
+

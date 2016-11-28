@@ -1,0 +1,12 @@
+A strategy pattern consists of a family of interchangeable algorithms to perform a task, and a mechanism for determining which strategy to use to accomplish that task.
+This may sound complex at first, but consider an example of deciding what to wear in the morning.
+
+Is your red shirt clean?
+If so, it can be worn.
+If it isn't, is your blue shirt clean?
+If yes, then it can be worn as well.
+Go through all of your shirt options for this test. Is it clean?
+You can prefer a particular shirt over another or just go with the last one you found.
+If you don't have any clean shirts then you've run out of strategies and you've got a problem.
+
+

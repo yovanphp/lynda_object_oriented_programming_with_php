@@ -1,0 +1,11 @@
+The scope resolution operator, or in other terms the double colon, is a token that allows access to static, constant, and overridden properties and methods of a class.
+I will be covering constants in the next video and overwriting properties and methods in the next chapter.
+
+To use this token, you need the name of the Class followed by the double colon.
+1. For a method, just add the name of the static method with parentheses and whatever arguments are needed.
+2. For a property, add a dollar sign, then the name of the static property that you're accessing.
+
+For example: $address::$valid_address_types
+
+Use of the scope resolution operator is not limited to accessing static properties and methods, as I will demonstrate in the next video.
+

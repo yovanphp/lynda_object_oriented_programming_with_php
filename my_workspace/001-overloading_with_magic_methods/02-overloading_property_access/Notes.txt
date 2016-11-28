@@ -1,0 +1,37 @@
+With properties of an object, there are two events that can be triggered upon access of a missing or out-of-scope property: when you get a property and when you set a property. 
+It can be useful to do things like use a method or function to determine a value to be returned or execute some sort of fail-safe behavior if you try to set a property that doesn't exist.
+
+In the address class, a magic get method will be useful for calculating a missing value. For example, if the postal code is null but there is a city and subdivision, you could attempt to look up the value in a database table.
+
+However, as the postal code is currently public, the magic get method won't be triggered; therefore, we'll change the scope of the postal code to protect it, in order to be able to use the magic get.
+
+We'll demonstrate the database lookup later.
+For the time being, you can put in a placeholder and focus on the magic get behavior.
+Remember, magic methods are public, so you do not have to specify scope when declaring it.
+=> change the scope of postal code to protected.
+=> Prepend the property name with an underscore to visually indicate
+
+We will require the  _postal_code_guess() method for the database lookup for the postal code.
+As there is no need to expose this function outside the address class, we protect it by defining it as protected
+=> protected function _postal_code_guess, return 'LOOKUP'.
+
+Now that we have a postal code placeholder, you can now leverage the magic get method.
+They take only one argument: the name of the property in the form of a string.
+
+We now insert the logic for this special behavior for the postal code property:
+Postal code lookup if unset. If no postal code, then set the postal code to postal code guess.
+After the special condition for postal code, you'll expose any protected properties that start with an underscore as read only.
+Remember, this will get around scope restrictions, so only do this if you're aware of the potential consequences, such as accidentally exposing internal data.
+In this case, there is no harm in exposing all protected properties as read-only.
+
+Finally we will attempt to return the value of a property by name.
+If the property does not exist, trigger a PHP error and return null.
+
+We would get a failure when we attempt to set the postal code, as it is currently protected.
+Therefore, we will also need to define a magic set to handle that circumstance.
+The magic set method has two arguments. The first is the name of the property as a string, and the second is a mixed value to be set. 
+Add the check for the postal code property and allow anything to manipulate it.
+In this example, stick with a simple if statement, as there is only one logical check. 
+If there were multiple property names that you're checking for, a switch statements may be more readable. Allow anything to set the postal code. 
+If the property is not a postal code, trigger a contextually appropriate error.
+

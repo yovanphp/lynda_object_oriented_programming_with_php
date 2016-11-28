@@ -1,0 +1,35 @@
+- Abstract classes cannot be instanciated.
+- When extending, abstract methods must also be abstract
+  - If a class has an abstract method, then the class must be abstract
+
+Note: If we try to instantiate the abstract class Address: Fatal error: Cannot instantiate abstract class Address.
+
+We have 3 types of concrete Address implementations: AddressBusiness, AddressResidential and AddressPark.
+When creating these different classes, we would like to set their address_types to the corresponding values.
+We could make the __construct() method abstract in the Address class, which would force the developer to define these methods in the extending classes. BUT we would copy and paste too many times the same code. Secondly this approach is not very object-oriented.
+
+Solution: Define an __init() abstract method and call this method inside the constructor of the Address class.
+This ensures that the developer will have to only implement this initializer method in extending classes, to add the address_type for example.
+Note: We cannot cannot specify a stricter visibility scope for implementations of abstract methods.
+If an abstract method was declared as public in the abstract class, its implementation in the concrete class must be public. If it were private in the abstract class, we can declare the implementation as public.
+
+There is still a problem. We can set the address_type outside of our code. This may prove dangerous for our application.
+Example:
+$address_residence = new AddressResidence([
+		'street_address_1' => 'Avenue Surath',
+		'street_address_2' => 'Belle-Rose',
+		'city_name' => 'Quatre-Bornes',
+		'subdivision_name' => 'Plaines-Wilhems',
+		'country_name' => 'Mauritius',
+		'address_type_id' => 2
+	]);
+Here, we have set the address_type_id = 2 for a Residential address. This works but is totally wrong.
+
+We should remove the reference of the address_type_id in the __set() method. This ensures that we cannot set the address_type_id from the outside.
+
+
+If we have removed the ref and try to set the address_type_id using the constructor, as before we get an error:
+Notice: Undefined or unallowed property via __set(): address_type_id
+
+
+

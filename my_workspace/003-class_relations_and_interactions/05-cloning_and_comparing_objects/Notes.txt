@@ -1,0 +1,23 @@
+Sometimes you will want to make a copy of an object.
+There are many reasons to do this, including making a backup before performing an operation or as a shortcut for defining a similar object.
+
+To create a copy of an object, use the clone keyword.
+$address_park_clone = clone($address_ park);
+
+The comparison operator, double equals, only checks to see if properties are the same, while the identity operator, triple equals, will ensure that in addition to the properties, both objects are same instances of the class.
+
+echo '<h2>Cloning AddressPark</h2>';
+$address_park_clone = clone($address_park);
+echo $address_park_clone == $address_park ? 'Are equal.' : 'Are not equal <br>';
+echo $address_park_clone === $address_park ? 'Are equal and of the same instances of the class.' : 'Are not of the same instance. <br>';
+
+Visually, every property is the same and the final line indicates this.
+However, there is a problem. The clone wasn't necessarily created at the same time as the source object.
+To resolve the issue, add a clone magic method to the address class.
+For the demonstration, we will explicitly set the time created and time updated to obvious values.
+The time updated and created have been set to the new values, and the final line states that $address_park_clone is not a copy of $address_park.
+
+Note: While cloning a new object, we can set the _time_created = time(); and _time_updated = null;
+Note: __clone() is a Magic method and hence is public by default. We don't have to define its accessor level.
+
+

@@ -1,0 +1,44 @@
+Exception handling refers to the methodology that responds to abnormal or exceptional situations that often will change the normal flow of program execution.
+In PHP, exceptions are thrown, then caught. To catch an exception, you surround your code in a try block.
+If an exception is thrown and not caught, a PHP fatal error will occur.
+
+Exceptions are a much more forgiving and logical way of handling an anomalous circumstance. Rather than just halting execution or displaying error messages, the program is given a chance to recover.
+
+Throwing an exception is straightforward. Use the throw keyword, followed by new, then the Exception class with appropriate parameters.
+
+We can throw exceptions in our Address class where we are trying to access the database.
+If a row is not found, we can throw an exception.
+
+public static final function load($address_id) {
+    $connection = Database::getInstance()->getConnection();
+    $query = 'SELECT * ';
+    $query .= 'FROM addresses ';
+    $query .= 'WHERE id = ' . (int) $address_id;
+    $query .= ' LIMIT 1';
+    $result_set = $connection->query($query);
+
+    /*if($row = $result_set->fetch_object()) {
+      var_dump($row);
+      exit();
+      return 0;
+    }*/
+
+    if($row = $result_set->fetch_assoc()) {
+      return self::getInstance($row['address_type_id'], $row);
+    }
+
+    throw new Exception('Address not found');
+  }
+
+ As we did not catch the thrown exception, when trying to access the record with id = 0, we fet a fatal error:
+ Fatal error: Uncaught exception 'Exception' with message 'Address not found'
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+1. We can initialize an object before it is used using the overloaded __construct() method.
+If we declare the function only, it will have no functional effect.
+If we have no need to customize the constructor, we can leave it out.
+
+2. For example we would like to set the creation date when instanciating a new object:
+function __construct() {
+	$this->_time_created = time();
+}
+
+3. It can be impractical to have to specify each property name when populating an object.
+Fortunately, you can pass arguments to the construct magic method, which can be used to optionally populate the object.
+
+We will pass an array as argument to the __construct method. 
+1. We must first check that the $data parameter is an array, else raise an error.
+2. For each key in this array, we would like to set the properties of the object - this triggers __set() method.
+As defined in the __set() methd,if the property does not exist, an error should be raised.
+3. We should also handle special cases like the protected _time_created and _time_updated fields to set their values too.

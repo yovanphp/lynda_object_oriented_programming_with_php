@@ -1,0 +1,36 @@
+When developing an application, you are typically working with many different kinds of data in different structures, each with a different behavior and needs.
+However, if you were to use different naming conventions for every single structure, your application would descend into chaos.The pejorative term spaghetti code is an app description, meaning the source code is impossibly complex and tangled like a pile of pasta.
+To avoid this mess, you can define an object interface.
+
+- An interface specifies what methods a class must implement, but doesn't say how those methods should be implemented.
+- There are similarities to an abstract class, except that an abstract class can have both scope and methods defined.
+- In an interface, every single method is by default abstract and public.
+- A class can implement more than one interface at a time, as long as those interfaces don't have conflicting method names.
+- Interfaces can also have constants, which will be available to any classes that implement it.
+- Interface constants cannot be overwritten or defined.
+- Finally, an interface can extend another interface if you desire.
+
+
+The practice of sharing a common application programming interface between classes is known as polymorphism.
+While an interface is not a class, it's very similar and can be loaded with the autoloader.
+
+A model is responsible for managing data, storing and retrieving entities, and containing business logic.
+
+interface Model {
+	static function load($address_id); 
+	function save();
+}
+
+The reason why load is static is that you cannot anticipate what class should be associated with a row.
+Instead, you can add logic to the load method to return the correct class for the row and call load statically.
+This will work because even though address is abstract, you're not instantiating it.
+
+If we have a class implementing an interface and we do not implement the required methods, an exception is thrown:  Fatal error: Class AddressResidence contains 2 abstract methods and must therefore be declared abstract or implement the remaining methods (Model::load, Model::save)
+
+We will make the Parent Address class implement the Model class. Hence while implementing the abstract methods code in the Address class, we must define these methods as final.
+The final keyword prevents child classes from overriding a method.
+Note: We can also declare a class as final. If we do, then it cannot be extended.
+
+In this case, you'll want the generic address to be able to load and save and to prevent its children from loading and saving in a different way.
+
+

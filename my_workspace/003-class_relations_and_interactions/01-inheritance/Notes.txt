@@ -1,0 +1,5 @@
+If you define an autoload function, it will be automatically called when you try to access a class that hasn't been defined yet.
+
+- A class can only extend one class's methods/properties at a time.
+- Cannot specify multiple classes at a time
+- Can extend a class that extends another class

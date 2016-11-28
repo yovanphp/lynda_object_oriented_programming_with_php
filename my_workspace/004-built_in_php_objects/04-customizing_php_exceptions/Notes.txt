@@ -1,0 +1,52 @@
+In the previous video, you throw an exception because of an unknown address_id but did not catch it, which resulted in a fatal error.
+
+echo '<h2>Loading from database</h2>';
+try {
+  $address_db = Address::load(0);
+  echo '<tt><pre>' . var_export($address_db, true) . '</pre></tt>';
+} 
+catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+The exception caught is more graceful compared to the fatal error displayed onscreen.
+
+We can customize exception handling, we can extend the Exception class with our own exception subclass:
+
+class ExceptionAddress extends Exception {
+
+  /**
+   * Magic toString()
+   * @ return string
+   */
+  
+  public function __toString() {
+    return __CLASS__ . "[{$this->code}]: {$this->message}\n";
+  }
+}
+
+The __toString() method of our Exception subclass returns a string : name_of_current_class [error_code]: error_message
+
+- Change the line   throw new Exception('Address not found'); to throw new ExceptionAddress('Address not found'); in the Adrress class
+- Then change catch(Exception $e) {
+  echo $e->getMessage();
+}
+
+to 
+catch(ExceptionAddress $e) {
+  echo $e; //Here we are using the __toString() method.
+}
+
+We get :
+ExceptionAddress[0]: Address not found
+
+Exception codes are integers.
+0 is not a very informative code. We should give a custom code to our exception.
+=> - Define a constant in the Address class which will be our error code;
+    const ADDRESS_ERROR_NOT_FOUND = 1000;
+    - Use this error code while throwing the Exception:
+     throw new ExceptionAddress('Address not found', self::ADDRESS_ERROR_NOT_FOUND);
+
+
+We will now successfully print our custom error message with a custom error code:
+ExceptionAddress[1000]: Address not found

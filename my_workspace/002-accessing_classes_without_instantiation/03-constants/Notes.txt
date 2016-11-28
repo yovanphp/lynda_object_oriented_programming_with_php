@@ -1,0 +1,15 @@
+A class constant is like a property with a value that never changes.
+Constants are useful for defining things like error codes, data structure names, and things that have no need to change at runtime, if ever.
+While there is no restriction built into PHP, best practice dictates that constant names are in all capital letters, separated by underscores.
+Constants can only contain simple values, such as strings, Booleans and integers. Arrays will not work.
+To define a constant, you start with the keyword const, followed by the name with no dollar sign, an assignment operator, and the value.
+const ADDRESS_TYPE_RESIDENCE = 1;
+const ADDRESS_TYPE_BUSINESS = 2;
+const ADDRESS_TYPE_PARK = 3;
+
+We did not specify that the address types be defined as a constant is that arrays are not allowed as constant values.
+With that said, you can replace the hard-coded values with the constants that were just declared.
+
+Similar to static properties, you use the scope resolution operator to access constants, only without the dollar sign.  Address::ADDRESS_TYPE_RESIDENCE, Address::ADDRESS_TYPE_BUSINESS, and Address::ADDRESS_TYPE_PARK
+
+

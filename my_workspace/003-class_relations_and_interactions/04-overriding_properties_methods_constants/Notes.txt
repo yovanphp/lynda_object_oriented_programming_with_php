@@ -1,0 +1,22 @@
+Overriding is a technique of redeclaring a method, property, or constant. 
+This is usually done in order to define a new or altered behavior. 
+Similar to abstraction, you cannot specify a stricter visibility scope.
+Overriding a property is very straightforward.
+In the child's class declare the property.
+
+As a demonstration, open the park class, then override the country name with the default of Australia.
+public $country_name = 'Australia';
+
+Overriding a constant is very similar; just redeclare it.
+The only restriction is that you cannot redeclare a constant that was declared in an interface.
+
+Overriding a method has some unique quirks.
+The new method must have the same number of arguments as the overridden method.
+Constructors are the sole exceptions to the argument role, where you can redeclare more or less arguments.
+Methods also have the ability to call the parent class access methods and properties.
+This is very useful when you want to extend functionality but not completely reinvent the wheel.
+
+For example: Override the public function display in the park class to have a green
+Use the keyword parent as the class name to reference the parent of the extended class address.
+
+$output .= parent::display();

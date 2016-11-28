@@ -1,0 +1,38 @@
+Sometimes, you may need to access a property or method of the class without the overhead of actually instantiating an object.
+Depending on the class that instantiation might include connections to a database or third-party service, which can degrade performance unnecessarily if all you needed to do was get a default variable. 
+Additionally before the release of PHP 5.3 the only way you could prevent a function or variable from having global scope was to declare it in a class. 
+Finally, there are circumstances where you want to create only one instance of the class and share across an application.
+So having a global mechanism to restrict the creation of instances becomes important.
+Enter the static keyword, which allows methods and properties to be accessed without needing to instantiate the member class.
+Static properties are unique and that their values are stored in a class level not an object level.
+This can be useful to keep track of the number of instantiated objects.
+
+
+In the address example, let's define what kind of an address it is.
+For the purposes of our demonstration consider a limited domain.
+An address can be a residence a business or a park.
+Each type of address should have a unique identifier.
+Let's use a value of 1 for residents, 2 for business and 3 for a park.
+
+You can assign a human readable label to these values for displaying to a user and even use these values for validation or to populate a select list in the form.
+
+As these address types are specific to the context of an address they should be associated with the class.
+However, there is no need to instantiate an address object just to access them therefore use the static keyword to expose this array to whatever needs access to it.
+
+When a property is declared static, you would use the same notation that you would for a regular property by including scope.
+Except you need to add the keyword static somewhere before the property name.
+There is no hard requirement about the order of keywords.
+But the best practice is to be consistent and I prefer to start with static.
+
+static public $valid_address_ types = array( 1 => 'Residence', 
+											 2=> 'Business',
+											 3=> 'Park
+											);
+
+echo '<tt><pre> . var_export ($address ->valid_address_types, TRUE </pre></tt>
+
+Instead of the expected result, there is an error message citing an undefined property.
+This is due to the static keyword.
+
+In the next video I will describe how to access a static property using a scope resolution operator.
+

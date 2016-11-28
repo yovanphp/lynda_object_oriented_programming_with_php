@@ -1,0 +1,21 @@
+A standard class is the result of typecasting a value of any type to an object.
+You won't have any methods, but it will have values.
+If you typecast an object to an object, it will not be modified.
+If you typecast an array to an object, the result will be an object with properties named for the keys of the array, with the values corresponding to the array values.
+When other datatypes other than Object and Arrays are typecasted to an object, the values are converted to an object with one property, named scalar, having the original value:
+
+stdClass::__set_state(array(
+   'scalar' => 78966513,
+))
+
+Standard class objects are practically used in a number of ways:
+For example, returning a defined data structure with fixed branches without nesting.
+Sometimes is used as shorthand to speed code development as it takes less characters to access a property than it does to specify a key.
+$array['key'] = value'
+$array->key = value'
+
+Finally, you can use a standard object when interacting with a method that is looking for an object with particular properties, but isn't actually checking for the class.
+
+ 
+
+

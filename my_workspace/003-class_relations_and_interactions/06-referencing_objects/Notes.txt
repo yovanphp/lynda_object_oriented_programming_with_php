@@ -1,0 +1,4 @@
+In PHP, a references is an alias, meaning two different variables can write to the same value.
+Objects are different, in that object variables do not contain the actual object itself, only the object's identifier.
+
+

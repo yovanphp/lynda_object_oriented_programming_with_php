@@ -1,0 +1,67 @@
+Standard objects are also created in another context: using a fetch object method in MySQLi.
+
+We can use the MySQLi result object to fetch an object from the database (see Address load($address_id) method).
+public static final function load($address_id) {
+    $connection = Database::getInstance()->getConnection();
+    $query = 'SELECT * ';
+    $query .= 'FROM addresses ';
+    $query .= 'WHERE id = ' . (int) $address_id;
+    $query .= ' LIMIT 1';
+    $result_set = $connection->query($query);
+
+    if($row = $result_set->fetch_object()) {
+      var_dump($row);
+      exit();
+      return 0;
+    }
+  }
+
+
+The object returned from the database is a standard object.
+
+MySQLi can also populate objects if you pass the object name as a parameter, but as there is potentially data from multiple classes in this one table, you will not be able to use that.
+
+Instead, switch MySQLi's fetch to an associative array. fetch_assoc().
+
+Next, define a public static helper method to get an instance of a particular class, depending on the address_type_id and able to populate with an array of data.
+This method is public, as it's very useful to be able to dynamically create objects without having to know their class names.
+final public static function getInstance($address_type_id, $data=[]) {
+	$class_name = 'Address'. self::$valid_address_types[$address_type_id];
+	return new $class_name($data);
+}
+
+public static final function load($address_id) {
+	$connection = Database::getInstance()->getConnection();
+	$query = 'SELECT * ';
+	$query .= 'FROM addresses ';
+	$query .= 'WHERE id = ' . (int) $address_id;
+	$query .= ' LIMIT 1';
+	$result_set = $connection->query($query);
+
+	if($row = $result_set->fetch_assoc()) {
+	  return self::getInstance($row['address_type'], $row);
+	}
+}
+
+A small change needs to be made to the constructor.
+When it was initially written, it supported the protected properties time_created and time_updated.
+Since that point, additional protected properties were added, but the constructor did not account for them, as there were no records coming from the database yet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

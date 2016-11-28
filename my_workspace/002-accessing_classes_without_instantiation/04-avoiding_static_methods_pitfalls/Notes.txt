@@ -1,0 +1,50 @@
+A static method is similar to a regular method in a number of ways: the naming convention is the same, it can have scope, and it can return a value.
+However, there are some distinguishing characteristics that separate static methods from regular methods.
+For example a static method to validate an address type ID - 
+check to see if the address_type_id is in the array keys of validAddressTypes.
+
+public static function isValidAddressTypeId($address_type_id) {
+      return array_key_exists($address_type_id, self::$valid_address_types);
+  }
+
+- Static methods cannot use $this as this pseudo variable references the current object and not the class.
+Instead, use the self keyword, which refers to the class in which it is called: self::$valid_address_types
+You can be explicit and specify the address class, but there is no functional advantage of doing so, and it increases overhead if you ever needed to refactor the name of the class.
+
+echo '<h2>Testing address type ID validation</h2>';
+$output = "<ul>";
+for ($id = 0; $id <= 4 ; $id++) {
+	$output .= "<li>id: {$id}: " . (Address::isValidAddressTypeId($id) ? 'Valid' : 'Invalid') . '</li>';
+}
+$output .= "</ul>";
+echo $output;
+
+Now that we have a test for valid address class, we can improve our class by allowing to store valid address types.
+=> Add a new property protected $_address_type_id;
+Then add a protected method _setAddressTypeId($address_type_id). This method will be accessible internally to our class and subclasses.
+
+protected function _setAddressTypeId($address_type_id) {
+      if(self::isValidAddressTypeId($address_type_id)) {
+          $this->_address_type_id = $address_type_id;
+      }
+ }
+
+This is to restrict the setting of $_address_type_id outside of the class.
+We will use the __setter($name) Magic method to do this functionnality.
+
+function __set($name, $value) {
+    //Only set valid address type id
+    if('address_type_id' == $name) {
+        $this->_setAddressTypeId($value);
+        return;
+    }
+    // Allow anything to set the postal code.
+    if ('postal_code' == $name) {
+      $this->$name = $value;
+      return;
+    }
+    
+    // Unable to access property; trigger error.
+    trigger_error('Undefined or unallowed property via __set(): ' . $name);
+  }
+

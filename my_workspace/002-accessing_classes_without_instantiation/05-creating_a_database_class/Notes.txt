@@ -1,0 +1,20 @@
+The MySQL improved extension, or MySQLi, offers both an object-oriented and procedural application programming interface that will allow you to interact with the database.
+Often, it is optimal to only connect to the database once.You could connect and disconnect every time you needed to query the database,but that's inefficient.
+You could have a global variable assigned to MySQLi connection, but that's fragile at best, as anything could manipulate it.
+
+It's better to control access and restrict the number of connections.
+Create a class that will allow only one connection to the database at a time and provide access throughout your application, while minimizing the possibility of corrupting the connection.
+
+private $_connection;
+private static $_instance;
+public static function getInstance () {
+	if(!$_instance) {
+		self::$_instance = new self();
+	}
+	return self:: $_instance
+}
+
+public function __construct () {
+	$this->connection=new Mysqli( 'localhost', 'yovan'. '12345678.' 'cms');
+}
+
